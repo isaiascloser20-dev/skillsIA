@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * MARCA DEL PROYECTO (white-label).
+ * --brand arranca NEUTRO (placeholder). new-ecoai lo reemplaza por el color
+ * del usuario en formato "R G B" (ej: 45 212 191). Todas las pantallas
+ * (OS, Dashboard, Knowledge, login) usan la clase `brand`, asi que cambiar
+ * estas dos variables rebrandea TODA la app de golpe. NUNCA un color de NVISION.
+ */
+:root {
+  --brand: 244 244 245;          /* neutro casi-blanco (placeholder) */
+  --brand-contrast: 10 11 15;    /* texto legible encima de un boton `bg-brand` */
+}

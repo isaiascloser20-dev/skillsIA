@@ -1,0 +1,31 @@
+name: smoke
+
+# Valida que la PLANTILLA (carpeta nvision/) sigue instalando, tipando y
+# compilando. Atrapa el drift que rompe a los alumnos antes de que clonen.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: nvision
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install deps
+        run: npm install
+      - name: Skills inventory al dia (frontmatter -> SKILLS_README)
+        run: |
+          npm run skills:inventory
+          git diff --exit-code .claude/skills/SKILLS_README.md || (echo "SKILLS_README desactualizado: corre npm run skills:inventory y commitea" && exit 1)
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build

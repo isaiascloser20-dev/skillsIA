@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--project-ref=YOUR_SUPABASE_PROJECT_REF"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "YOUR_SUPABASE_ACCESS_TOKEN"
+      }
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "next-devtools-mcp@latest"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
+    "_comment_opcionales": "Los 3 de arriba son el core (BD + errores en vivo + browser). MCPs extra opcionales, añadir SOLO si el proyecto los necesita: brave-search, firecrawl-mcp, sequential-thinking, chrome-devtools, firebase, google-workspace. n8n-mcp requiere Docker (no recomendado si no eres tecnico)."
+  }
+}
