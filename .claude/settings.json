@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/puerta-de-entrada.mjs\"",
+            "statusMessage": "puerta de entrada",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "//": "REGLA: publicar y cerrar NO preguntan nada. Lo unico que atraviesa el modo Bypass son las reglas `ask` de aqui abajo (documentado por Anthropic: 'Skips permission prompts, except those forced by explicit ask rules'). Y `ask` gana a `allow`. Por eso la lista `ask` se queda SOLO con lo que de verdad destruye y que este flujo nunca usa.",
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(node scripts/:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git merge:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "Bash(git worktree:*)",
+      "Bash(git update-ref:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git rev-list:*)",
+      "Bash(git merge-base:*)",
+      "Bash(git ls-remote:*)",
+      "Bash(npx vercel ls:*)",
+      "Bash(npx vercel inspect:*)",
+      "Skill(publicar)",
+      "Skill(cerrar)"
+    ],
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(supabase db push:*)",
+      "Bash(npx supabase db push:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./.mcp.json)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Bash(cat .env*)",
+      "Bash(cat .mcp.json)",
+      "Bash(rm -rf:*)",
+      "Bash(git clean:*)"
+    ]
+  }
+}
